@@ -1,5 +1,6 @@
 package steps;
 
+import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.pt.Dado;
 import io.cucumber.java.pt.E;
@@ -8,9 +9,12 @@ import io.cucumber.java.pt.Quando;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.CadastroPage;
 import pages.LoginPage;
 
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class LoginStep {
@@ -25,10 +29,15 @@ public class LoginStep {
         driver.manage().timeouts().pageLoadTimeout(5, TimeUnit.SECONDS);
         cadastroPage = new CadastroPage(driver);
         loginPage = new LoginPage(driver);
-
-
-
     }
+
+        @After
+        public void after(){
+            driver.quit();
+        }
+
+
+
     @Dado("que esteja na pagina inicial: {string}")
     public void queEstejaNaPaginaInicial(String url) {
         driver.get(url);
@@ -41,20 +50,20 @@ public class LoginStep {
     }
 
     @E("clicar em fazer login")
-    public void clicarEmFazerLogin() {
-        loginPage.clicarAcessar();
-            }
+    public void clicarEmFazerLogin() throws InterruptedException {
+                loginPage.clicarAcessar();
+       }
 
-    @Então("valido que a pagina de boas vindas foi carregada com sucesso")
-    public void validoQueAPaginaDeBoasVindasFoiCarregada() {
-        Assert.assertTrue(driver.getCurrentUrl().contains("/home"));
-
-
+    @Então("valido que a pagina de boas vindas foi carregada")
+    public void validoQueAPaginaDeBoasVindasFoiCarregada()  {
+       String url = "http://localhost:3000/home";;
+       new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.urlToBe(url));
+       Assert.assertTrue(driver.getCurrentUrl().contains("/home"));
     }
 
-    @E("possuo cadastro")
-    public void possuoCadastro() {
-        CadastroPage.clicarRegistrar();                                       // Fazendo as chamadas da classe HomePage
+    @Dado("possuo cadastro")
+    public void possuoCadastro() throws InterruptedException {
+        CadastroPage.clicarRegistrar();  // Fazendo as chamadas da classe HomePage
         CadastroPage.PreencherEmail("teste@teste.com.br");
         CadastroPage.PreencherNome("QA Academy");
         CadastroPage.PreencherSenha("teste");

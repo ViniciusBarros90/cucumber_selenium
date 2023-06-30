@@ -22,7 +22,7 @@ public class LoginPage {
             driver.findElement(By.xpath(SENHA)).sendKeys(senha);
         }
 
-               public void clicarAcessar() {
+        public void clicarAcessar() {
             driver.findElement(By.xpath(ACESSAR)).click();
         }
 
