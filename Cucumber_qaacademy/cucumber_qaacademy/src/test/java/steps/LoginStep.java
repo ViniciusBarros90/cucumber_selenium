@@ -15,6 +15,8 @@ import pages.CadastroPage;
 import pages.LoginPage;
 
 import java.time.Duration;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class LoginStep {
@@ -56,7 +58,7 @@ public class LoginStep {
 
     @Então("valido que a pagina de boas vindas foi carregada")
     public void validoQueAPaginaDeBoasVindasFoiCarregada()  {
-       String url = "http://localhost:3000/home";;
+       String url = "http://localhost:3000/home";
        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.urlToBe(url));
        Assert.assertTrue(driver.getCurrentUrl().contains("/home"));
     }
@@ -68,6 +70,23 @@ public class LoginStep {
         CadastroPage.PreencherNome("QA Academy");
         CadastroPage.PreencherSenha("teste");
         CadastroPage.PreencherConfirmacaoSenha("teste");
+        CadastroPage.ClicarEmCriarComSaldo();
+        CadastroPage.ClicarCadastrar();
+        CadastroPage.clicarFechar();
+    }
+
+    @Dado("preencho o cadastro com os dados")
+    public void possuoCadastroDataTable(List<Map<String, String>> dataTable)  {
+        String email = dataTable.get(1).get("Email");
+        String nome = dataTable.get(1).get("Nome");
+        String senha = dataTable.get(1).get("Senha");
+        String confirmacao = dataTable.get(1).get("Confirmacao");
+
+        CadastroPage.clicarRegistrar();
+        CadastroPage.PreencherEmail(email);
+        CadastroPage.PreencherNome(nome);
+        CadastroPage.PreencherSenha(senha);
+        CadastroPage.PreencherConfirmacaoSenha(confirmacao);
         CadastroPage.ClicarEmCriarComSaldo();
         CadastroPage.ClicarCadastrar();
         CadastroPage.clicarFechar();
