@@ -1,6 +1,8 @@
 #language:pt
+@test
 Funcionalidade: Teste login Bugbank
-  Cenario: Login com sucesso
+
+  Cenario: Login com sucesso Data Table
     Dado que esteja na pagina inicial: "http://localhost:3000"
     E preencho o cadastro com os dados
     |Email                |Nome       |Senha|Confirmacao|
