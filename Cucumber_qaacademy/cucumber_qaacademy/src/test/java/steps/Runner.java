@@ -5,6 +5,6 @@ import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "classpath:features", publish = true, tags =  " @test and not @wip")
+@CucumberOptions(features = "classpath:features", publish = true )
 public class Runner {
 }
