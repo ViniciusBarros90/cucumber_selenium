@@ -1,5 +1,6 @@
 target/
 .idea/
+Jenkinsfile
 
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
