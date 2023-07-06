@@ -20,6 +20,19 @@ pipeline {
                     archiveArtifacts 'target/*.jar'
                 }
             }
+
         }
+
+   stage('Build Bugbank') {
+               steps {
+                   // Download do projeto de teste unitário
+                   bat 'echo Baixando o Bugbank'
+                   git 'https://github.com/qaacademy/bugbank.git'
+                   bat yarn
+                   bat 'echo Bugbank está em execução'
+
+                                     }
+                  }
     }
+
 }
