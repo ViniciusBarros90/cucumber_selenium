@@ -1,14 +1,15 @@
 pipeline {
     agent any
+   //
+    stages {
+        stage('Testes Unitarios') {
+            steps {
+                // Download do projeto de teste unitario
+                bat 'echo Inicio dos testes unitarios Baixando projeto qaacademy_exercicios_junit.git'
+                git 'https://github.com/gupereirah/qaacademy_exercicios_junit-1.git'
 
-        stages {
-        stage('Build Bugbank') {
-                       steps {
-                           // Download do projeto de teste unitário
-                           bat 'echo Baixando o Bugbank'
-                           git 'https://github.com/qaacademy/bugbank.git'
-                           bat 'yarn'
-                           bat 'echo Bugbank está em execução'
+                // Executar os testes unitarios usando Maven
+                bat "mvn clean install test"
 
             }
             post {
@@ -18,20 +19,27 @@ pipeline {
                     junit '**/target/surefire-reports/TEST-*.xml'
                     archiveArtifacts 'target/*.jar'
                 }
-            }
 
+            }
+        }
+        stage('Build Bugbank') {
+                    steps {
+                        // Download do projeto de teste unitario
+                        bat 'echo Baixando Bugbank'
+                        git 'https://github.com/qaacademy/bugbank.git'
+                        bat 'echo Bugbank está em execução'
+
+                    }
+        }
+        stage('Test E2E') {
+                            steps {
+                                // Download do projeto de teste unitario
+                                bat 'echo Baixando testes e2e'
+                                git 'https://github.com/qaacademy/qaacademy_selenium_cucumber.git'
+                                bat 'mvn clean install -Dtest=Runner test'
+
+                            }
         }
 
-   stage('Testes E2E') {
-               steps {
-                   // Download do projeto de teste unitário
-                   bat 'echo baixando testes e2e'
-                   git 'https://github.com/ViniciusBarros90/cucumber_selenium.git'
-                   bat 'mvn clean install -Dtest=Runner test'
-
-
-                                     }
-                  }
     }
-
 }
