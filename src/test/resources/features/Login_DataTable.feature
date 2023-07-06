@@ -3,7 +3,7 @@
 Funcionalidade: Teste login Bugbank
 
   Cenario: Login com sucesso Data Table
-    Dado que esteja na pagina inicial: "http://localhost:3001"
+    Dado que esteja na pagina inicial: "http://localhost:3000"
     E preencho o cadastro com os dados
     |Email                |Nome       |Senha|Confirmacao|
     |teste10@teste.com.br |QA         |teste|teste      |
