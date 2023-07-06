@@ -45,7 +45,8 @@ public class CadastroPage {
         driver.findElement(By.xpath(CONFIRM_SENHA)).sendKeys(ConfirmacaoSenha);
     }
 
-    public static void ClicarEmCriarComSaldo() {
+    public static void ClicarEmCriarComSaldo() throws InterruptedException {
+        Thread.sleep(3000);
         driver.findElement(By.xpath(CRIAR_SALDO)).click();
     }
 

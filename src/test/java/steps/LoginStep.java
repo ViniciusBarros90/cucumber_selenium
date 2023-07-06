@@ -76,7 +76,7 @@ public class LoginStep {
     }
 
     @Dado("preencho o cadastro com os dados")
-    public void possuoCadastroDataTable(List<Map<String, String>> dataTable)  {
+    public void possuoCadastroDataTable(List<Map<String, String>> dataTable) throws InterruptedException {
         String email = dataTable.get(1).get("Email");
         String nome = dataTable.get(1).get("Nome");
         String senha = dataTable.get(1).get("Senha");
