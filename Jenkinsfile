@@ -2,14 +2,13 @@ pipeline {
     agent any
 
         stages {
-        stage('Testes Unitarios') {
-            steps {
-                // Download do projeto de teste unitário
-                bat 'echo Inicio dos testes unitarios  Baixando projeto cucumber_selenium.git'
-                git 'https://github.com/ViniciusBarros90/cucumber_selenium.git'
-
-                // Executar os testes unitarios usando Maven
-                bat "mvn clean install test"
+        stage('Build Bugbank') {
+                       steps {
+                           // Download do projeto de teste unitário
+                           bat 'echo Baixando o Bugbank'
+                           git 'https://github.com/qaacademy/bugbank.git'
+                           bat 'yarn'
+                           bat 'echo Bugbank está em execução'
 
             }
             post {
@@ -23,13 +22,13 @@ pipeline {
 
         }
 
-   stage('Build Bugbank') {
+   stage('Testes E2E') {
                steps {
                    // Download do projeto de teste unitário
-                   bat 'echo Baixando o Bugbank'
-                   git 'https://github.com/qaacademy/bugbank.git'
-                   bat 'yarn'
-                   bat 'echo Bugbank está em execução'
+                   bat 'echo baixando testes e2e'
+                   git 'https://github.com/ViniciusBarros90/cucumber_selenium.git'
+                   bat 'mvn clean install -Dtest=Runner test'
+
 
                                      }
                   }
